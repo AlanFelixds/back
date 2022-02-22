@@ -11,7 +11,8 @@ class LoginService {
                 password: password,
             }
         });
-        console.log(authenticationUser);
+
+        if(authenticationUser == null) return {code: 10};
         return authenticationUser;
     }
 }

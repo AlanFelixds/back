@@ -4,7 +4,7 @@ import { LoginController } from "./controller/LoginController";
 
 const router = Router();
 
-router.post('/login', new LoginController().handle);
+router.post('/signin', new LoginController().handle);
 router.post('/signup', new CreateUserController().handle);
 
 export {router};
