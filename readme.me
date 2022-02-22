@@ -1,1 +1,15 @@
-backend is here
+# backend #
+
+- first step
+
+npm install ## to install all dependences for project.
+
+- second step 
+
+create file .env with variable DATABASE_URL with config to connect the database.
+The DATABASE_URL have this structure DATABASE_URL="mysql://dbuser:dbpassword@host:port/dbname?schema=public"
+
+- third step
+
+npx prisma db pull
+npx prisma migrate dev
