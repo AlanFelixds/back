@@ -1,19 +1,24 @@
 import prismaClient from './prisma/index';
-
+import bcrypt from 'bcrypt';
 
 class LoginService {
 
 
     async execute(user: string, password: string ) {
-        const authenticationUser = await prismaClient.user.findFirst({
+
+
+        const userdb = await prismaClient.user.findFirst({
             where:{
                 user: user,
-                password: password,
             }
         });
 
-        if(authenticationUser == null) return {code: 10};
-        return authenticationUser;
+        if(userdb == null) return "usuário não encontrado";
+        const checkPassword = bcrypt.compareSync(password, userdb.password);
+
+        if(checkPassword == false) return "usuario não encontrado";
+        if(checkPassword == true) return userdb;
+
     }
 }
 

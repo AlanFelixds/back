@@ -10,6 +10,8 @@ class LoginController {
         const service = new LoginService();
         const result = await service.execute(user, password);
 
+        console.log(result);
+
         return response.json(result);
     }
 }
