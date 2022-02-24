@@ -1,5 +1,6 @@
 import prismaClient from './prisma/index';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 class LoginService {
 
@@ -7,17 +8,24 @@ class LoginService {
     async execute(user: string, password: string ) {
 
 
-        const userdb = await prismaClient.user.findFirst({
+
+        const userExist = await prismaClient.user.findFirst({
             where:{
                 user: user,
             }
         });
 
-        if(userdb == null) return "usuário não encontrado";
-        const checkPassword = bcrypt.compareSync(password, userdb.password);
+        if(!userExist) { return "Usuário ou senha invalido"};
+        
+        const checkPassword = bcrypt.compareSync(password, userExist.password);
+        if(!checkPassword) { return "Usuário ou senha invalido.." };
 
-        if(checkPassword == false) return "usuario não encontrado";
-        if(checkPassword == true) return userdb;
+
+        const token = jwt.sign({user}, '123456', {subject: userExist.id, expiresIn: '60m'});
+
+        console.log(token)
+        return token;
+
 
     }
 }

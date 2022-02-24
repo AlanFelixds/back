@@ -9,7 +9,7 @@ class CreateUserController {
         const {user, password, email} =  request.body;
         const service = new CreateUserService();
         
-        const hashWord = await bcrypt.hash(password,10);
+        const hashWord = await bcrypt.hash(password, 10);
         const result = await service.execute(user, hashWord, email);
 
         return response.json(result);
