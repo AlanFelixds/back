@@ -1,6 +1,7 @@
 import prismaClient from './prisma/index';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { json } from 'express';
 
 class LoginService {
 
@@ -8,23 +9,28 @@ class LoginService {
     async execute(user: string, password: string ) {
 
 
+        try {
+            const userExist = await prismaClient.user.findFirst({
+                where:{
+                    user: user,
+                }
+            });
+    
+            if(userExist) { 
+                const checkPassword = bcrypt.compareSync(password, userExist.password);
+                if(checkPassword) { 
+                    const token = jwt.sign({user}, '123456', {subject: userExist.id, expiresIn: '60m'});
+                    return ({'token': token});
+                };
+            };
 
-        const userExist = await prismaClient.user.findFirst({
-            where:{
-                user: user,
-            }
-        });
-
-        if(!userExist) { return "Usuário ou senha invalido"};
+            return ({'error': 'Usuário ou senha invalidos....'});
+        } catch (error) {
+            console.log('Error 1:'+error);
+        }
         
-        const checkPassword = bcrypt.compareSync(password, userExist.password);
-        if(!checkPassword) { return "Usuário ou senha invalido.." };
 
-
-        const token = jwt.sign({user}, '123456', {subject: userExist.id, expiresIn: '60m'});
-
-        console.log(token)
-        return token;
+        // console.log(token)
 
 
     }

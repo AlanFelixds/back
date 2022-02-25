@@ -31,11 +31,14 @@ model User {
 
 model Events {
   id Int @id @default(autoincrement())
+  name String
+  date DateTime
+  teacher String
+  teacherEmail String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name String
-  participants Participants @relation(fields: [participantsID], references: [id])
-  participantsID Int
+  // participants Participants @relation(fields: [participantsID], references: [id])
+  // participantsID Int
 }
 
 
@@ -43,6 +46,6 @@ model Participants {
   id Int @id @default(autoincrement())
   name String
   email String
-  events Events[]
+  // events Events[]
 }
 //Teste
