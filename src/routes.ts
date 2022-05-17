@@ -1,14 +1,22 @@
 import { Router } from "express";
-import { CreateUserController } from "./controller/CreateUserController";
-import { LoginController } from "./controller/LoginController";
 import { ensureAuthenticated } from "./middleware/userAuthenticated";
+import { CreateController } from "./modules/servidor/crud/create/createController";
 
 const router = Router();
 
-router.post('/signin', new LoginController().handle);
-router.post('/signup', new CreateUserController().handle);
-router.get('/teste', ensureAuthenticated, (req, res)=>{
-    res.send('etste');
-});
+
+
+
+
+//REITOR
+
+
+//ADMIN
+
+
+//SERVIDOR
+
+// router.post('/signin', new LoginController().handle);
+router.post('/signup', new CreateController().handle);
 
 export {router};
