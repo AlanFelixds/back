@@ -22,7 +22,7 @@ export function ensureAuthenticated(
   const [, token] = authToken.split(" ");
 
   try {
-    const {sub} = verify(token, '123456') as IPayload;
+    const {sub} = verify(token, '12345') as IPayload;
 
     console.log(sub);
     return next();

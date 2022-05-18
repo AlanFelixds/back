@@ -7,12 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Servidor {
+model User {
   id       String @id @default(uuid())
-  email    String
+  email    String @unique
   password String
+  name     String
+  role     Role   @default(servidor)
 
-  @@map("servidor")
+  @@map("user")
 }
 
 model Events {
@@ -32,6 +34,13 @@ model Participants {
   name  String
   email String
   // events Events[]
+}
+
+enum Role {
+  servidor
+  admin
+  reitor
+  dep
 }
 
 //Teste

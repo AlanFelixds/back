@@ -1,17 +1,18 @@
-import { prisma } from "../../../../core/database/prisma";
+import { prisma } from "../../../core/database/prisma";
 import { hash } from "bcrypt";
 
 interface ICreateServidor {
+    name: string;
     email: string;
     password: string;
 }
 
 export class CreateRepository {
 
-    async execute({email, password}: ICreateServidor){
+    async execute({name, email, password}: ICreateServidor){
 
 
-        const servidorExist = await prisma.servidor.findFirst({
+        const servidorExist = await prisma.user.findFirst({
             where:{
                 email,
             }
@@ -23,8 +24,9 @@ export class CreateRepository {
 
         const hashPassword = await hash(password, 10);
 
-        const servidor = await prisma.servidor.create({
+        const servidor = await prisma.user.create({
             data:{
+                name,
                 email,
                 password: hashPassword,
             }

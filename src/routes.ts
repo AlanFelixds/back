@@ -1,22 +1,15 @@
 import { Router } from "express";
 import { ensureAuthenticated } from "./middleware/userAuthenticated";
-import { CreateController } from "./modules/servidor/crud/create/createController";
+import { AuthController } from "./modules/authentication/auth-controller";
+import { CreateController } from "./modules/user/create/createController";
+import { ListController } from "./modules/user/list/listController";
 
 const router = Router();
 
 
 
-
-
-//REITOR
-
-
-//ADMIN
-
-
-//SERVIDOR
-
-// router.post('/signin', new LoginController().handle);
+router.post('/login', new AuthController().handle);
 router.post('/signup', new CreateController().handle);
+router.post('/list', ensureAuthenticated,  new ListController().handle);
 
 export {router};
