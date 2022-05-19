@@ -28,7 +28,7 @@ export class AuthRepository {
             throw new Error("Email or password invalid");
         }
 
-        const token = sign({user_email: user.email, user_role: user.role}, "12345", { subject: user.id, expiresIn: "1d"});
+        const token = sign({ user_name: user.name, user_email: user.email, user_role: user.role}, "12345", { subject: user.id, expiresIn: "1d"});
 
 
         return token;

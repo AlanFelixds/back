@@ -8,25 +8,27 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  email    String @unique
+  id       String   @id @default(uuid())
+  email    String   @unique
   password String
   name     String
-  role     Role   @default(servidor)
+  role     Role     @default(servidor)
+  events   Events[]
 
   @@map("user")
 }
 
 model Events {
-  id           Int      @id @default(autoincrement())
-  name         String
-  date         DateTime
-  teacher      String
-  teacherEmail String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id         String   @id @default(uuid())
+  name       String
+  date_event DateTime
+  created_at DateTime @default(now())
+  user_id    String
+  user       User?    @relation(fields: [user_id], references: [id])
   // participants Participants @relation(fields: [participantsID], references: [id])
   // participantsID Int
+
+  @@map("events")
 }
 
 model Participants {
@@ -34,6 +36,8 @@ model Participants {
   name  String
   email String
   // events Events[]
+
+  @@map("participants")
 }
 
 enum Role {
@@ -42,5 +46,3 @@ enum Role {
   reitor
   dep
 }
-
-//Teste

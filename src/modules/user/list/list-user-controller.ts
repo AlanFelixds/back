@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ListRepository } from "./listRepository";
+import { ListRepository } from "./list-user-repository";
 
 
 export class ListController {

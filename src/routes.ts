@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { ensureAuthenticated } from "./middleware/userAuthenticated";
 import { AuthController } from "./modules/authentication/auth-controller";
-import { CreateController } from "./modules/user/create/createController";
-import { ListController } from "./modules/user/list/listController";
+import { CreateController } from "./modules/user/create/create-user-controller";
+import { ListController } from "./modules/user/list/list-user-controller";
 
 const router = Router();
 

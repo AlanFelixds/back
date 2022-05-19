@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateRepository } from "./createRepository";
+import { CreateRepository } from "./create-user-repository";
 
 
 export class CreateController {
