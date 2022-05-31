@@ -24,14 +24,20 @@ export class CreateRepository {
 
         const hashPassword = await hash(password, 10);
 
-        const servidor = await prisma.user.create({
-            data:{
-                name,
-                email,
-                password: hashPassword,
-            }
-        });
 
-        return servidor;
+        try {
+            await prisma.user.create({
+                data:{
+                    name,
+                    email,
+                    password: hashPassword,
+                }
+            });
+            return "Usuario criado";
+        } catch (error) {
+            console.log("Erro ao criar usuario");
+        }
+        
+        
     }
 }

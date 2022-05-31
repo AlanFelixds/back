@@ -8,8 +8,8 @@ export class CreateController {
 
         const { name, email, password } = request.body;
         const createRepository = new CreateRepository();
-        const result = await createRepository.execute({name, email, password});
+        await createRepository.execute({name, email, password});
 
-        return response.json(result);
+        return response.status(201).send();
     }
 }

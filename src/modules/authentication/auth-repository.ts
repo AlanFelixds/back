@@ -11,12 +11,11 @@ export class AuthRepository {
 
     async execute({email, password} : IAuthRepository){
 
-
         const user = await prisma.user.findUnique({
             where:{
                 email
             }
-        })
+        });
 
 
         if (!user) {
@@ -25,13 +24,13 @@ export class AuthRepository {
         
         const compareMatch = await compare(password, user.password);
         if(!compareMatch){
-            throw new Error("Email or password invalid");
+            throw new Error("Email or password invalidd");
         }
 
         const token = sign({ user_name: user.name, user_email: user.email, user_role: user.role}, "12345", { subject: user.id, expiresIn: "1d"});
 
 
-        return token;
+        return { token: token, user_name: user.name, user_email: user.email, user_role: user.role};
 
     }
 }

@@ -24,7 +24,8 @@ export function ensureAuthenticated(
   try {
     const {sub} = verify(token, '12345') as IPayload;
 
-    console.log(sub);
+    request.id_user = sub;
+
     return next();
   } catch (err) {
     return response.status(401).json({ errorCode: "token.expired" });
