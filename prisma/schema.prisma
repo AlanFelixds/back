@@ -39,6 +39,8 @@ model Participants {
 
   events EventParticipant[]
 
+  certificados_id String?
+  Certificados    Certificados? @relation(fields: [certificados_id], references: [id])
   @@map("participants")
 }
 
@@ -52,6 +54,12 @@ model EventParticipant {
   participants    Participants? @relation(fields: [participants_id], references: [id])
 
   @@map("event_participant")
+}
+
+model Certificados {
+  id          String         @id @default(uuid())
+  file        String
+  participant Participants[]
 }
 
 enum Role {
